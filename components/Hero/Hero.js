@@ -8,19 +8,37 @@ import acousticGuitar from "/public/icons/acoustic-guitar.svg";
 import styles from "./Hero.module.scss";
 
 import Image from "next/image";
-
 import { useState } from "react";
 
-export default function Hero() {
-  const categories = [
-    { name: "electric guitars", img: electricGuitar },
-    { name: "bass guitars", img: bass },
-    { name: "drums", img: drum },
-    { name: "keyboards", img: keyboard },
-    { name: "acoustic guitars", img: acousticGuitar },
-  ];
+import Fade from "/components/utils/Fade";
 
+const animationDuration = 200;
+
+const categories = [
+  { name: "electric guitars", img: electricGuitar },
+  { name: "bass guitars", img: bass },
+  { name: "drums", img: drum },
+  { name: "keyboards", img: keyboard },
+  { name: "acoustic guitars", img: acousticGuitar },
+];
+
+export default function Hero() {
   const [focusedCategory, setFocusedCategory] = useState();
+  const [hovering, setHovering] = useState(false);
+  const [storedTimeout, setStoredTimeout] = useState(null);
+
+  const handleMouseEnter = (category) => {
+    storedTimeout && clearTimeout(storedTimeout);
+    setHovering(true);
+    setFocusedCategory(category);
+  };
+
+  const handleMouseLeave = () => {
+    setHovering(false);
+    setStoredTimeout(setTimeout(() => {
+      setFocusedCategory(null);
+    }, animationDuration));
+  };
 
   return (
     <>
@@ -33,8 +51,9 @@ export default function Hero() {
             <ul>
               {categories.map((category) => (
                 <li
-                  onMouseEnter={() => setFocusedCategory(category)}
-                  onMouseLeave={() => setFocusedCategory(null)}
+                  key={category.name}
+                  onMouseEnter={() => handleMouseEnter(category)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <Image
                     src={category.img}
@@ -46,14 +65,14 @@ export default function Hero() {
                 </li>
               ))}
             </ul>
-            {focusedCategory && (
+            <Fade in={hovering} duration={animationDuration}>
               <div className={styles["focused-category"]}>
                 shop{" "}
                 <span className={styles["category-name"]}>
-                  {focusedCategory.name}.
+                  {focusedCategory && focusedCategory.name}.
                 </span>
               </div>
-            )}
+            </Fade>
           </nav>
         </div>
       </div>
