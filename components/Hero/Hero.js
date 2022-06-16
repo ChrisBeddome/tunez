@@ -53,7 +53,7 @@ export default function Hero() {
           <nav>
             <ul>
               {categories.map((category) => (
-                <Link href={`/shop/categories/${category.name}`} key={category.name}>
+                <Link href={`/shop/categories/${category.name.replaceAll(" ", "-")}`} key={category.name}>
                   <a>
                     <li
                       onMouseEnter={() => handleMouseEnter(category)}
