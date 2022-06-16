@@ -9,11 +9,9 @@ import styles from "./Hero.module.scss";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Fade from "/components/utils/Fade";
-
-const animationDuration = 200;
 
 const categories = [
   { name: "electric guitars", img: electricGuitar },
@@ -23,28 +21,50 @@ const categories = [
   { name: "acoustic guitars", img: acousticGuitar },
 ];
 
+const frames = [null, null, ...categories, null];
+const transitionDelay = 40; //ms
+
 export default function Hero() {
-  const [focusedCategory, setFocusedCategory] = useState();
-  const [hovering, setHovering] = useState(false);
-  const [storedTimeout, setStoredTimeout] = useState(null);
+  const [focusedCategoryText, setFocusedCategoryText] = useState(null);
+  const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+
+  const focusedCategory = hoveredCategory || frames[currentFrameIndex];
 
   const handleMouseEnter = (category) => {
-    storedTimeout && clearTimeout(storedTimeout);
-    setHovering(true);
-    setFocusedCategory(category);
+    setHoveredCategory(category);
   };
 
   const handleMouseLeave = () => {
-    setHovering(false);
-    setStoredTimeout(
-      setTimeout(() => {
-        setFocusedCategory(null);
-      }, animationDuration)
-    );
+    setHoveredCategory(null);
+    setCurrentFrameIndex(0);
+  };
+
+  useEffect(() => {
+    const ref = setFrameInterval();
+    return () => {
+      clearInterval(ref);
+    };
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFocusedCategoryText(focusedCategory && focusedCategory.name);
+    }, transitionDelay);
+  }, [focusedCategory]);
+
+  const setFrameInterval = () => {
+    const ref = setInterval(() => {
+      setCurrentFrameIndex((prevFrameIndex) => {
+        return prevFrameIndex < frames.length - 1 ? prevFrameIndex + 1 : 0;
+      });
+    }, 1200);
+    return ref;
   };
 
   return (
     <>
+      <div>frame: {currentFrameIndex} </div>
       <div className={styles.hero}>
         <div className={styles.container}>
           <div className={styles.logo}>
@@ -53,9 +73,18 @@ export default function Hero() {
           <nav>
             <ul>
               {categories.map((category) => (
-                <Link href={`/shop/categories/${category.name.replaceAll(" ", "-")}`} key={category.name}>
+                <Link
+                  href={`/shop/categories/${category.name.replaceAll(
+                    " ",
+                    "-"
+                  )}`}
+                  key={category.name}
+                >
                   <a>
                     <li
+                      className={
+                        focusedCategory === category ? styles.focused : null
+                      }
                       onMouseEnter={() => handleMouseEnter(category)}
                       onMouseLeave={handleMouseLeave}
                     >
@@ -71,11 +100,14 @@ export default function Hero() {
                 </Link>
               ))}
             </ul>
-            <Fade in={hovering} duration={animationDuration}>
+            <Fade
+              in={focusedCategory && focusedCategoryText ? true : false}
+              duration={transitionDelay}
+            >
               <div className={styles["focused-category"]}>
                 shop{" "}
                 <span className={styles["category-name"]}>
-                  {focusedCategory && focusedCategory.name}.
+                  {focusedCategoryText}.
                 </span>
               </div>
             </Fade>
