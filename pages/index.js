@@ -1,3 +1,5 @@
+import Hero from "/components/Hero/Hero.js";
+
 export default function HomePage() {
-  return <h1>tunez.</h1>
+  return <Hero />
 }
