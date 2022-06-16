@@ -64,7 +64,6 @@ export default function Hero() {
 
   return (
     <>
-      <div>frame: {currentFrameIndex} </div>
       <div className={styles.hero}>
         <div className={styles.container}>
           <div className={styles.logo}>
