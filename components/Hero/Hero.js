@@ -72,21 +72,21 @@ export default function Hero() {
           <nav>
             <ul>
               {categories.map((category) => (
-                <Link
-                  href={`/shop/categories/${category.name.replaceAll(
-                    " ",
-                    "-"
-                  )}`}
-                  key={category.name}
+                <li
+                  className={
+                    focusedCategory === category ? styles.focused : null
+                  }
+                  onMouseEnter={() => handleMouseEnter(category)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <a>
-                    <li
-                      className={
-                        focusedCategory === category ? styles.focused : null
-                      }
-                      onMouseEnter={() => handleMouseEnter(category)}
-                      onMouseLeave={handleMouseLeave}
-                    >
+                  <Link
+                    href={`/shop/categories/${category.name.replaceAll(
+                      " ",
+                      "-"
+                    )}`}
+                    key={category.name}
+                  >
+                    <a>
                       <Image
                         src={category.img}
                         height={100}
@@ -94,9 +94,9 @@ export default function Hero() {
                         alt={`shop ${category.name}`}
                         priority
                       />
-                    </li>
-                  </a>
-                </Link>
+                    </a>
+                  </Link>
+                </li>
               ))}
             </ul>
             <Fade
