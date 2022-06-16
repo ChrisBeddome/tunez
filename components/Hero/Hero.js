@@ -21,14 +21,16 @@ export default function Hero() {
   return (
     <>
       <div className={styles.hero}>
-        <div className={styles.logo}>
-          <Image src={logo} alt="tunez logo" layout="intrinsic" priority />
+        <div className={styles.container}>
+          <div className={styles.logo}>
+            <Image src={logo} alt="tunez logo" layout="intrinsic" priority />
+          </div>
+          <nav>
+            <ul>
+              {categories.map(category => <li><Image src={category.img} height={100} width={100} alt={`shop ${category.name}`} priority /></li>)}
+            </ul>
+          </nav>
         </div>
-        <nav>
-          <ul>
-            {categories.map(category => <li><Image src={category.img} height={100} width={100} alt={`shop ${category.name}`} priority/></li>)}
-          </ul>
-        </nav>
       </div>
     </>
   );

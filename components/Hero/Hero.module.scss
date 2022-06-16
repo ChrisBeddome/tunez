@@ -2,32 +2,33 @@
 
 .hero {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background-color: $primary;
-  
-  >* {
-    flex: 1 1 0px;
-  }
 
-  .logo {
-    width: 300px;
-    margin-left: 16px;
-    max-width: 80%;
-    display: flex;
-    align-items: flex-end;
-    padding-bottom: 30px;
-  }
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 750px;
+    
+    .logo {
+      width: 300px;
+      margin-left: 16px; //offset logo to effectively ignore period when centering.
+      margin: auto;
+    }
 
-  nav {
-    padding-top: 30px;
-    ul {
-      display: flex;
-      li {
-        margin: 0 20px;
+    nav {
+      padding-top: 25px;
+      ul {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        li {
+          margin: 25px;
+          flex-shrink: 0;
+        }
       }
     }
   }
-
 }
