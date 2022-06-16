@@ -8,6 +8,7 @@ import acousticGuitar from "/public/icons/acoustic-guitar.svg";
 import styles from "./Hero.module.scss";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 import Fade from "/components/utils/Fade";
@@ -35,9 +36,11 @@ export default function Hero() {
 
   const handleMouseLeave = () => {
     setHovering(false);
-    setStoredTimeout(setTimeout(() => {
-      setFocusedCategory(null);
-    }, animationDuration));
+    setStoredTimeout(
+      setTimeout(() => {
+        setFocusedCategory(null);
+      }, animationDuration)
+    );
   };
 
   return (
@@ -50,19 +53,22 @@ export default function Hero() {
           <nav>
             <ul>
               {categories.map((category) => (
-                <li
-                  key={category.name}
-                  onMouseEnter={() => handleMouseEnter(category)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <Image
-                    src={category.img}
-                    height={100}
-                    width={100}
-                    alt={`shop ${category.name}`}
-                    priority
-                  />
-                </li>
+                <Link href={`/shop/categories/${category.name}`} key={category.name}>
+                  <a>
+                    <li
+                      onMouseEnter={() => handleMouseEnter(category)}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      <Image
+                        src={category.img}
+                        height={100}
+                        width={100}
+                        alt={`shop ${category.name}`}
+                        priority
+                      />
+                    </li>
+                  </a>
+                </Link>
               ))}
             </ul>
             <Fade in={hovering} duration={animationDuration}>
