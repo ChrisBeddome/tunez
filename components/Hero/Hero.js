@@ -58,7 +58,7 @@ export default function Hero() {
       setCurrentFrameIndex((prevFrameIndex) => {
         return prevFrameIndex < frames.length - 1 ? prevFrameIndex + 1 : 0;
       });
-    }, 1200);
+    }, 1000);
     return ref;
   };
 
