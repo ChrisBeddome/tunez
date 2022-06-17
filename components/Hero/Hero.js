@@ -73,6 +73,7 @@ export default function Hero() {
             <ul>
               {categories.map((category) => (
                 <li
+                  key={category.name}
                   className={
                     focusedCategory === category ? styles.focused : null
                   }
@@ -84,7 +85,6 @@ export default function Hero() {
                       " ",
                       "-"
                     )}`}
-                    key={category.name}
                   >
                     <a>
                       <Image
