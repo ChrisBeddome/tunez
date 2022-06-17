@@ -1,10 +1,4 @@
 import logo from "/public/branding/logo-white.svg";
-import electricGuitar from "/public/icons/electric-guitar.svg";
-import bass from "/public/icons/bass-guitar.svg";
-import drum from "/public/icons/snare-drum.svg";
-import keyboard from "/public/icons/keyboard.svg";
-import acousticGuitar from "/public/icons/acoustic-guitar.svg";
-
 import styles from "./Hero.module.scss";
 
 import Image from "next/image";
@@ -13,18 +7,12 @@ import { useState, useEffect } from "react";
 
 import Fade from "/components/utils/Fade";
 
-const categories = [
-  { name: "electric guitars", img: electricGuitar },
-  { name: "bass guitars", img: bass },
-  { name: "drums", img: drum },
-  { name: "keyboards", img: keyboard },
-  { name: "acoustic guitars", img: acousticGuitar },
-];
-
-const frames = [null, null, ...categories, null];
 const transitionDelay = 40; //ms
 
-export default function Hero() {
+export default function Hero({ categories }) {
+  const frames = [null, null, ...categories, null];
+  console.log(categories)
+
   const [focusedCategoryText, setFocusedCategoryText] = useState(null);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const [hoveredCategory, setHoveredCategory] = useState(null);
@@ -88,7 +76,7 @@ export default function Hero() {
                   >
                     <a>
                       <Image
-                        src={category.img}
+                        src={`/icons/${category.name.replaceAll(" ", "-")}.svg`}
                         height={100}
                         width={100}
                         alt={`shop ${category.name}`}
