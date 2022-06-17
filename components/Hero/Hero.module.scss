@@ -15,9 +15,13 @@
 
     .logo {
       width: 300px;
+      max-width: 100%;
       position: relative;
       left: 7px; //offset logo to effectively ignore period when centering.
       margin: auto;
+      @media screen and (max-width: 460px) {
+        width: 200px;
+      }
     }
 
     nav {
@@ -36,6 +40,10 @@
           }
 
           transition: transform 180ms ease-in-out;
+          @media screen and (max-width: 460px) {
+            width: 75px;
+            margin: 15px;
+          }
         }
       }
 
@@ -48,6 +56,9 @@
         font-size: 32px;
         font-weight: 100;
         font-family: Montserrat, sans-serif;
+        @media screen and (max-width: 460px) {
+          font-size: 22px;
+        }
 
         .category-name {
           color: #000;
