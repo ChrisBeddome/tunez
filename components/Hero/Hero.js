@@ -11,7 +11,6 @@ const transitionDelay = 40; //ms
 
 export default function Hero({ categories }) {
   const frames = [null, null, ...categories, null];
-  console.log(categories)
 
   const [focusedCategoryText, setFocusedCategoryText] = useState(null);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
