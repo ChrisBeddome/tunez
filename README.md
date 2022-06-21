@@ -24,6 +24,12 @@ MONGODB_CONNECTION_STRING = mongodb://$MONGODB_USER:$MONGODB_PASS@$MONGO_DB_HOST
 
 ```
 
+## Seed Data
+
+```bash
+mongorestore -d tunez ./data_backups/tunez/ -u <user> -p <password> --authenticationDatabase <authDatabase>
+```
+
 ## Usage
 
 Ensure mongodb is running (may differ depending on your local environment)
