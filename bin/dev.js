@@ -17,17 +17,17 @@ if (!HOSTNAME) {
 const serverProcess = exec(path.resolve(__dirname, "../", `node_modules/next/dist/bin/next dev -p ${PORT} -H ${HOSTNAME}`))
 
 serverProcess.stdout.on('data', data => {
-  console.log(data); 
+  process.stdout.write(data); 
 });
 
 serverProcess.stderr.on('data', data => {
-  console.error(data); 
+  process.stdout.write(data); 
 });
 
 serverProcess.on('close', code => {
-  console.log(`child process close all stdio with code ${code}`);
+  process.stdout.write(`child process close all stdio with code ${code}`);
 });
 
 serverProcess.on('exit', code => {
-  console.log(`child process exited with code ${code}`);
+  process.stdout.write(`child process exited with code ${code}`);
 });
