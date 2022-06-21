@@ -27,7 +27,7 @@ MONGODB_CONNECTION_STRING = mongodb://$MONGODB_USER:$MONGODB_PASS@$MONGO_DB_HOST
 ## Seed Data
 
 ```bash
-mongorestore -d tunez ./data_backups/tunez/ -u <user> -p <password> --authenticationDatabase <authDatabase>
+mongorestore -d <db_name> ./data_backups/tunez/ -u <user> -p <password> --authenticationDatabase <authDatabase>
 ```
 
 ## Usage
@@ -41,6 +41,12 @@ start the development server
 
 ```bash
 npm run dev
+```
+
+##Data backup
+
+```bash
+mongodump -d <db_name> -u <user> -p <password> --authenticationDatabase <authDatabase> -o ./data_backups
 ```
 
 ## License
