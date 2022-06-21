@@ -19,3 +19,15 @@ const serverProcess = exec(path.resolve(__dirname, "../", `node_modules/next/dis
 serverProcess.stdout.on('data', data => {
   console.log(data); 
 });
+
+serverProcess.stderr.on('data', data => {
+  console.error(data); 
+});
+
+serverProcess.on('close', code => {
+  console.log(`child process close all stdio with code ${code}`);
+});
+
+serverProcess.on('exit', code => {
+  console.log(`child process exited with code ${code}`);
+});
