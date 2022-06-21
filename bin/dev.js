@@ -4,8 +4,8 @@ const dotenv = require('dotenv')
 
 dotenv.config({path: path.join(__dirname, "../", ".env.local")});
 
-const PORT = parseInt(process.env.PORT);
-const HOSTNAME = process.env.HOSTNAME;
+const PORT = parseInt(process.env.NEXT_PORT);
+const HOSTNAME = process.env.NEXT_HOSTNAME;
 
 if (!PORT) {
   throw new Error('Please add PORT to .env.local');

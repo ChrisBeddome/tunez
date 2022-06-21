@@ -11,12 +11,14 @@ run `npm install` from root directory
 create `.env.local` file in the project root directory using the template:
 
 ```bash
-HOSTNAME = localhost
-PORT = 3000
+NEXT_HOSTNAME = localhost
+NEXT_PORT = 3000
 
-MONGODB_URI = mongodb://127.0.0.1:27017
+MONGO_DB_HOSTNAME = 127.0.0.1
+MONGO_DB_PORT = 27017
+MONGODB_URI = mongodb://$MONGO_DB_HOSTNAME:$MONGO_DB_PORT
 MONGODB_DB = tunez
-MONGODB_USER = tunez_user
+MONGODB_USER = tunezAdmin
 MONGODB_PASS = password
 ```
 
