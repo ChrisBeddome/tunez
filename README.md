@@ -43,7 +43,7 @@ start the development server
 npm run dev
 ```
 
-##Data backup
+## Data backup
 
 ```bash
 mongodump -d <db_name> -u <user> -p <password> --authenticationDatabase <authDatabase> -o ./data_backups
