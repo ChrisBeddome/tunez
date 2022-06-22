@@ -56,24 +56,12 @@ export default function Hero({ categories }) {
           <ul>
             <li>
               <button>
-                <Image
-                  src={`/icons/search__white.svg`}
-                  height={26}
-                  width={26}
-                  alt="search"
-                  priority
-                />
+                <i className="material-symbols-outlined">search</i>
               </button>
             </li>
             <li>
               <button>
-                <Image
-                  src={`/icons/shopping-cart__white.svg`}
-                  height={26}
-                  width={26}
-                  alt="shopping cart"
-                  priority
-                />
+                <i className="material-symbols-outlined">shopping_cart</i>
               </button>
             </li>
           </ul>
