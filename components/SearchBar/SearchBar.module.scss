@@ -5,24 +5,37 @@
   height: 1000px;
   margin: 50px auto;
   font-family: Montserrat, sans-serif;
-  input {
-    font-family: inherit;
-    font-size: 24px;
-    font-weight: 300;
-    display: block;
+  background-color: white;
+  .input-container {
+    display: flex;
+    align-items: center;
     width: 100%;
+    padding: 8px 8px 0px 0px;
     border-bottom: 1px solid $primary;
-    padding: 0;
+    box-sizing: border-box;
+    icon {
+      font-size: 30px;
+      margin-right: 10px;
+      color: $primary;
+    }
+    input {
+      color: #333;
+      font-size: 24px;
+      font-weight: 300;
+      flex: 1;
+      font-family: inherit;
+      display: block;
+    }
   }
   .results {
     width: 100%;
     font-size: 16px;
-    >li {
+    > li {
       display: flex;
       align-items: center;
       padding: 8px;
       &:hover {
-        background-color: #F5F5F5;
+        background-color: #f5f5f5;
       }
 
       .result-text {

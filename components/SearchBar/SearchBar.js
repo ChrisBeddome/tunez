@@ -113,7 +113,7 @@ export default function SearchBar() {
           a.toLowerCase().indexOf(query.toLowerCase()) -
           b.toLowerCase().indexOf(query.toLowerCase())
       )
-      .filter((band, i) => i < 10);
+      .filter((band, i) => i < 15);
 
     setResults(res);
   }
@@ -124,12 +124,15 @@ export default function SearchBar() {
 
   return (
     <div className={styles.searchBar}>
-      <input
-        value={query}
-        onChange={(e) => handleInputChange(e.target.value)}
-        placeholder="search products..."
-        type="text"
-      />
+      <div className={styles["input-container"]}>
+        <icon className="material-symbols-outlined">search</icon>
+        <input
+          value={query}
+          onChange={(e) => handleInputChange(e.target.value)}
+          placeholder="search products..."
+          type="text"
+        />
+      </div>
       <ul className={styles.results}>
         {results.map((result) => (
           <li key={result}>
