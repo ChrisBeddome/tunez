@@ -125,7 +125,7 @@ export default function SearchBar() {
   return (
     <div className={styles.searchBar}>
       <div className={styles["input-container"]}>
-        <icon className="material-symbols-outlined">search</icon>
+        <i className="material-symbols-outlined">search</i>
         <input
           value={query}
           onChange={(e) => handleInputChange(e.target.value)}
