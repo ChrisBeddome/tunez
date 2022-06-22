@@ -1,0 +1,15 @@
+.header {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  box-sizing: border-box;
+
+  ul {
+    li {
+      display: inline;
+      margin-left: 10px;
+    }
+  }
+}

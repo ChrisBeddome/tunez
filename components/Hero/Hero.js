@@ -75,7 +75,10 @@ export default function Hero({ categories }) {
                   >
                     <a>
                       <Image
-                        src={`/icons/${category.name.replaceAll(" ", "-")}.svg`}
+                        src={`/icons/categories/${category.name.replaceAll(
+                          " ",
+                          "-"
+                        )}.svg`}
                         height={100}
                         width={100}
                         alt={`shop ${category.name}`}
