@@ -1,0 +1,42 @@
+@import "/styles/variables.scss";
+
+.searchBar {
+  width: 500px;
+  height: 1000px;
+  margin: 50px auto;
+  font-family: Montserrat, sans-serif;
+  input {
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 300;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid $primary;
+    padding: 0;
+  }
+  .results {
+    width: 100%;
+    font-size: 16px;
+    >li {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      &:hover {
+        background-color: #F5F5F5;
+      }
+
+      .result-text {
+        line-height: 1.4;
+        margin-left: 10px;
+      }
+
+      .result-icon {
+        min-width: 35px;
+      }
+    }
+  }
+  .highlight-text {
+    font-weight: 500;
+    color: $primary;
+  }
+}
