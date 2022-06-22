@@ -52,6 +52,32 @@ export default function Hero({ categories }) {
   return (
     <>
       <div className={styles.hero}>
+        <header className={styles.header}>
+          <ul>
+            <li>
+              <button>
+                <Image
+                  src={`/icons/search__white.svg`}
+                  height={26}
+                  width={26}
+                  alt="search"
+                  priority
+                />
+              </button>
+            </li>
+            <li>
+              <button>
+                <Image
+                  src={`/icons/shopping-cart__white.svg`}
+                  height={26}
+                  width={26}
+                  alt="shopping cart"
+                  priority
+                />
+              </button>
+            </li>
+          </ul>
+        </header>
         <div className={styles.container}>
           <div className={styles.logo}>
             <Image src={logo} alt="tunez logo" layout="intrinsic" priority />

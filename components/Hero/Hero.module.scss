@@ -4,6 +4,22 @@
   height: 100vh;
   background-color: $primary;
 
+  .header {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    box-sizing: border-box;
+
+    ul {
+      li {
+        display: inline;
+        margin-left: 10px;
+      }
+    }
+  }
+
   .container {
     position: absolute;
     top: 50%;
