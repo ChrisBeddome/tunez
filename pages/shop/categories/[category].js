@@ -14,13 +14,22 @@ export default function CategoryPage({ category, products }) {
       </Link>
       {products.map((product) => {
         return (
-          <ul style={{marginTop: "50px"}}>
+          <ul key={product._id} style={{ marginTop: "50px" }}>
             <li>{product.name}</li>
             <li>{product.brand}</li>
             <li>{product.price}</li>
             <li>{product.stock}</li>
             <li>
-              <Image src={product.imageUrl} width={100} height={100}></Image>
+              <Link href={`/shop/products/${product._id}`}>
+                <a>
+                  {" "}
+                  <Image
+                    src={product.imageUrl}
+                    width={100}
+                    height={100}
+                  ></Image>
+                </a>
+              </Link>
             </li>
             <li>{product.description}</li>
           </ul>
@@ -44,7 +53,7 @@ export async function getStaticProps(context) {
 export async function getStaticPaths() {
   const slugs = await getCategorySlugs();
   return {
-    paths: await slugs.map((slug) => {
+    paths: slugs.map((slug) => {
       return {
         params: {
           category: slug,
@@ -74,6 +83,7 @@ async function getCategoryProducts(categoryId) {
   const { db } = await connectToDatabase();
   const products = await db
     .collection("products")
-    .find({ categoryId }, { projection: { _id: 0 } });
-  return products.toArray();
+    .find({ categoryId })
+    .toArray();
+  return JSON.parse(JSON.stringify(products));
 }
