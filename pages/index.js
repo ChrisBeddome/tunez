@@ -15,6 +15,9 @@ export async function getStaticProps() {
 
 async function getCategories() {
   const { db } = await connectToDatabase();
-  const categories = await db.collection("categories").find().toArray();
-  return JSON.parse(JSON.stringify(categories));
+  const categories = await db
+    .collection("categories")
+    .find({}, { projection: { _id: 0 } })
+    .toArray();
+  return categories;
 }
