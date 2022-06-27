@@ -82,17 +82,11 @@ export default function Hero({ categories }) {
                   onMouseLeave={handleMouseLeave}
                 >
                   <Link
-                    href={`/shop/categories/${category.name.replaceAll(
-                      " ",
-                      "-"
-                    )}`}
+                    href={`/shop/categories/${category.slug}`}
                   >
                     <a>
                       <Image
-                        src={`/icons/categories/${category.name.replaceAll(
-                          " ",
-                          "-"
-                        )}.svg`}
+                        src={category.iconUrl}
                         height={100}
                         width={100}
                         alt={`shop ${category.name}`}
