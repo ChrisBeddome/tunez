@@ -1,8 +1,15 @@
 import Hero from "/components/Hero/Hero";
+import SearchBar from "/components/SearchBar/SearchBar";
+
 import connectToDatabase from "/lib/connectToDatabase";
 
 export default function HomePage({ categories }) {
-  return <Hero categories={categories} />;
+  return (
+    <>
+      <Hero categories={categories} />
+      <SearchBar />
+    </>
+  );
 }
 
 export async function getStaticProps() {

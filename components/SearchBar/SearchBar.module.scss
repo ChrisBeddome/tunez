@@ -29,7 +29,9 @@
   .results {
     width: 100%;
     font-size: 16px;
-    > li {
+    > li a {
+      text-decoration: none;
+      color: inherit;
       display: flex;
       align-items: center;
       padding: 8px;
@@ -44,6 +46,9 @@
 
       .result-icon {
         min-width: 35px;
+        .thumbnail {
+          border-radius: 35px;
+        }
       }
     }
   }

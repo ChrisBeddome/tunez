@@ -3,8 +3,6 @@ import Image from "next/image";
 import connectToDatabase from "/lib/connectToDatabase";
 
 export default function CategoryPage({ category, products }) {
-  console.log(category);
-  console.log(products);
   return (
     <div>
       <h1>{category.name}</h1>
