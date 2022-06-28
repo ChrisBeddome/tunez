@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { useState, useEffect } from "react";
 
-export default function SearchBar() {
+export default function SearchBar({ className }) {
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState("");
 
@@ -31,7 +31,7 @@ export default function SearchBar() {
   };
 
   return (
-    <div className={styles.searchBar}>
+    <div className={`${className} ${styles.searchBar}`}>
       <div className={styles["input-container"]}>
         <i className="material-symbols-outlined">search</i>
         <input

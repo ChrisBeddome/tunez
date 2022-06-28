@@ -1,28 +1,8 @@
 @import "/styles/variables.scss";
 
 .hero {
-  height: 100vh;
+  height: calc(100vh - $header-height);
   background-color: $primary;
-
-  .header {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-    box-sizing: border-box;
-
-    ul {
-      li {
-        display: inline;
-        margin-left: 5px;
-        i {
-          color: white;
-          font-size: 30px;
-        }
-      }
-    }
-  }
 
   .container {
     position: absolute;

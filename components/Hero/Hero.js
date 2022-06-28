@@ -52,20 +52,6 @@ export default function Hero({ categories }) {
   return (
     <>
       <div className={styles.hero}>
-        <header className={styles.header}>
-          <ul>
-            <li>
-              <button>
-                <i className="material-symbols-outlined">search</i>
-              </button>
-            </li>
-            <li>
-              <button>
-                <i className="material-symbols-outlined">shopping_cart</i>
-              </button>
-            </li>
-          </ul>
-        </header>
         <div className={styles.container}>
           <div className={styles.logo}>
             <Image src={logo} alt="tunez logo" layout="intrinsic" priority />
@@ -81,9 +67,7 @@ export default function Hero({ categories }) {
                   onMouseEnter={() => handleMouseEnter(category)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <Link
-                    href={`/shop/categories/${category.slug}`}
-                  >
+                  <Link href={`/shop/categories/${category.slug}`}>
                     <a>
                       <Image
                         src={category.iconUrl}
