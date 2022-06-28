@@ -8,10 +8,10 @@ const PORT = parseInt(process.env.NEXT_PORT);
 const HOSTNAME = process.env.NEXT_HOSTNAME;
 
 if (!PORT) {
-  throw new Error('Please add PORT to .env.local');
+  throw new Error('Please add NEXT_PORT to .env.local');
 }
 if (!HOSTNAME) {
-  throw new Error('Please add HOSTNAME to .env.local');
+  throw new Error('Please add NEXT_HOSTNAME to .env.local');
 }
 
 const serverProcess = exec(path.resolve(__dirname, "../", `node_modules/next/dist/bin/next dev -p ${PORT} -H ${HOSTNAME}`))

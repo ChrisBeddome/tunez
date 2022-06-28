@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node ./bin/dev.js",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "backup": "node ./bin/backup.js"
   },
   "author": "Chris Beddome",
   "license": "MIT",
