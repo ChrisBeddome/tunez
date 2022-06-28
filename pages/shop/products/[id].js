@@ -20,18 +20,18 @@ export default function ProductPage({ product }) {
 }
 
 export async function getStaticProps(context) {
-  const product = await getProductData(context.params.id);
-
-  if (product) {
+  try {
+    const id = ObjectId(context.params.id);
+    const product = await getProductData(id);
     return {
       props: {
         product,
       },
     };
-  } else {
+  } catch {
     return {
-      notFound: true
-    }
+      notFound: true,
+    };
   }
 }
 
@@ -62,6 +62,10 @@ async function getProductData(id) {
   const { db } = await connectToDatabase();
   const product = await db
     .collection("products")
-    .findOne({ _id: ObjectId(id) }, { projection: { _id: 0 } });
-  return product;
+    .findOne({ _id: id }, { projection: { _id: 0 } });
+  if (product) {
+    return product;
+  } else {
+    throw "Product not found"
+  }
 }
