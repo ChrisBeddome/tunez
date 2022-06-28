@@ -2,7 +2,7 @@
 
 .header {
   height: $header-height;
-  position: fixed;
+  position: absolute;
   width: 100%;
   z-index: 100;
   color: white;
@@ -17,7 +17,7 @@
 
   .logo,
   .navigation {
-    width: 200px;
+    width: 120px;
   }
 
   .navigation {
@@ -31,5 +31,6 @@
 
   .search-bar {
     flex: 1;
+    max-width: 800px;
   }
 }

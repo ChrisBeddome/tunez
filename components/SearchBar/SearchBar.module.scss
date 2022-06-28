@@ -2,8 +2,7 @@
 
 .searchBar {
   font-family: Montserrat, sans-serif;
-  background-color: white;
-  color: #222;
+  background-color: #26262a;
   border-radius: 4px;
   position: relative;
   .input-container {
@@ -16,7 +15,7 @@
     i {
       font-size: 24px;
       margin-right: 10px;
-      color: $primary;
+      color: #aaa;
     }
     input {
       font-size: 16px;
@@ -24,18 +23,25 @@
       flex: 1;
       font-family: inherit;
       display: block;
+      color: #CCC;
+
+      &::placeholder {
+        color: #aaa;
+      }
     }
   }
   .results {
+    visibility: hidden;
     position: absolute;
     top: 38px;
     width: 100%;
     font-size: 16px;
     background-color: white;
     border-radius: 4px;
+    box-shadow: 0px 4px 5px rgba(0,0,0, 0.2);
     > li a {
       text-decoration: none;
-      color: inherit;
+      color: #222;
       display: flex;
       align-items: center;
       padding: 8px;
@@ -43,12 +49,10 @@
       &:hover {
         background-color: #f5f5f5;
       }
-
       .result-text {
         line-height: 1.4;
         margin-left: 10px;
       }
-
       .result-icon {
         min-width: 35px;
         .thumbnail {
@@ -60,5 +64,21 @@
   .highlight-text {
     font-weight: 500;
     color: $primary;
+  }
+}
+
+.focused {
+  background-color: white;
+  border: 1px solid $primary;
+  .input-container {
+    i {
+      color: $primary;
+    }
+    input {
+      color: #222;
+    }
+  }
+  .results {
+    visibility: visible;
   }
 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { useState, useEffect } from "react";
 
-export default function SearchBar({ className }) {
+export default function SearchBar({ className, onFocus, onBlur }) {
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState("");
 
@@ -39,6 +39,8 @@ export default function SearchBar({ className }) {
           onChange={(e) => handleInputChange(e.target.value)}
           placeholder="search products..."
           type="text"
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
       </div>
       <ul className={styles.results}>

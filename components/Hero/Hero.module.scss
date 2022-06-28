@@ -3,6 +3,7 @@
 .hero {
   height: calc(100vh - $header-height);
   background-color: $primary;
+  position: relative;
   .container {
     position: absolute;
     top: 50%;
