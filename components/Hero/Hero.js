@@ -1,4 +1,3 @@
-import logo from "/public/branding/logo-white.svg";
 import styles from "./Hero.module.scss";
 
 import Image from "next/image";
@@ -53,9 +52,6 @@ export default function Hero({ categories }) {
     <>
       <div className={styles.hero}>
         <div className={styles.container}>
-          <div className={styles.logo}>
-            <Image src={logo} alt="tunez logo" layout="intrinsic" priority />
-          </div>
           <nav>
             <ul>
               {categories.map((category) => (
