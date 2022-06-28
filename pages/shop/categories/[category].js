@@ -41,13 +41,19 @@ export default function CategoryPage({ category, products }) {
 
 export async function getStaticProps(context) {
   const category = await getCategoryData(context.params.category);
-  const products = await getCategoryProducts(category._id);
-  return {
-    props: {
-      category,
-      products,
-    },
-  };
+  if (category) {
+    const products = await getCategoryProducts(category._id);
+    return {
+      props: {
+        category,
+        products,
+      },
+    };
+  } else {
+    return {
+      notFound: true,
+    };
+  }
 }
 
 export async function getStaticPaths() {
@@ -60,7 +66,7 @@ export async function getStaticPaths() {
         },
       };
     }),
-    fallback: true,
+    fallback: "blocking",
   };
 }
 

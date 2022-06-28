@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ObjectId } from "mongodb"
+import { ObjectId } from "mongodb";
 import connectToDatabase from "/lib/connectToDatabase";
 
 export default function ProductPage({ product }) {
@@ -21,11 +21,18 @@ export default function ProductPage({ product }) {
 
 export async function getStaticProps(context) {
   const product = await getProductData(context.params.id);
-  return {
-    props: {
-      product
-    },
-  };
+
+  if (product) {
+    return {
+      props: {
+        product,
+      },
+    };
+  } else {
+    return {
+      notFound: true
+    }
+  }
 }
 
 export async function getStaticPaths() {
@@ -34,11 +41,11 @@ export async function getStaticPaths() {
     paths: ids.map((id) => {
       return {
         params: {
-          id
+          id,
         },
       };
     }),
-    fallback: true,
+    fallback: "blocking",
   };
 }
 
@@ -46,14 +53,15 @@ async function getProductIds() {
   const { db } = await connectToDatabase();
   const products = await db
     .collection("products")
-    .find({}, { projection: { _id: 1 }})
+    .find({}, { projection: { _id: 1 } })
     .toArray();
   return JSON.parse(JSON.stringify(products.map((product) => product._id)));
 }
 
 async function getProductData(id) {
   const { db } = await connectToDatabase();
-  const product = await db.collection("products").findOne({ _id: ObjectId(id) }, {projection: {_id: 0}});
+  const product = await db
+    .collection("products")
+    .findOne({ _id: ObjectId(id) }, { projection: { _id: 0 } });
   return product;
 }
-
