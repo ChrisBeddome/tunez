@@ -1,17 +1,26 @@
 import styles from "./SearchBar.module.scss";
-import reactStringReplace from "react-string-replace";
-import Image from "next/image";
-import Link from "next/link";
+import SearchResults from "./SearchResults";
+import ClickOutside from "/components/utils/ClickOutside";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export default function SearchBar({ className, onFocus, onBlur }) {
+export default function SearchBar({
+  className,
+  focused,
+  onFocus,
+  onBlur
+}) {
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState("");
+  const inputRef = useRef(null);
 
   useEffect(() => {
     performSearch();
   }, [query]);
+
+  // need to use custom click-outside handler because blur events fire before click events
+  // causing result section to unmount before link click is processed
+  ClickOutside(inputRef, onBlur);
 
   async function performSearch() {
     if (!query || query.length < 1) {
@@ -23,7 +32,7 @@ export default function SearchBar({ className, onFocus, onBlur }) {
     );
 
     const results = (await response.json()).results;
-    setResults([...results.categories, ...results.products]);
+    setResults([...results.products, ...results.categories]);
   }
 
   const handleInputChange = (val) => {
@@ -31,49 +40,23 @@ export default function SearchBar({ className, onFocus, onBlur }) {
   };
 
   return (
-    <div className={`${className} ${styles.searchBar}`}>
+    <div
+      className={`${className} ${styles.searchBar} ${
+        focused ? styles.focused : null
+      }`}
+    >
       <div className={styles["input-container"]}>
         <i className="material-symbols-outlined">search</i>
         <input
+          ref={inputRef}
           value={query}
           onChange={(e) => handleInputChange(e.target.value)}
           placeholder="search products..."
           type="text"
           onFocus={onFocus}
-          onBlur={onBlur}
         />
       </div>
-      <ul className={styles.results}>
-        {results.map((result) => (
-          <li key={result._id}>
-            <Link href={result.link}>
-              <a>
-                <div className={styles["result-icon"]}>
-                  <Image
-                    className={styles.thumbnail}
-                    src={result.thumbnailUrl}
-                    width={35}
-                    height={35}
-                  />
-                </div>
-                <div className={styles["result-text"]}>
-                  {reactStringReplace(
-                    result.name,
-                    new RegExp(`(${query})`, "gi"),
-                    (match, i) => {
-                      return (
-                        <span key={i} className={styles["highlight-text"]}>
-                          {match}
-                        </span>
-                      );
-                    }
-                  )}
-                </div>
-              </a>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {focused && <SearchResults items={results} queriedText={query} />}
     </div>
   );
 }

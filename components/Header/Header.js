@@ -1,5 +1,4 @@
 import styles from "./Header.module.scss";
-import searchStyles from "/components/SearchBar/SearchBar.module.scss";
 import SearchBar from "/components/SearchBar/SearchBar";
 import SearchOverlay from "./SearchOverlay";
 
@@ -15,9 +14,7 @@ export default function Header() {
     setSearchFocused(true);
   };
   const handleSearchBlur = () => {
-    setTimeout(() => {
-      setSearchFocused(false);
-    }, 100); //back
+    setSearchFocused(false);
   };
 
   return (
@@ -26,9 +23,8 @@ export default function Header() {
         <Image src={logo} alt="tunez logo" width={140} priority />
       </div>
       <SearchBar
-        className={`${styles["search-bar"]} ${
-          searchFocused && searchStyles.focused
-        }`}
+        className={styles["search-bar"]}
+        focused={searchFocused}
         onFocus={handleSearchFocus}
         onBlur={handleSearchBlur}
       />
