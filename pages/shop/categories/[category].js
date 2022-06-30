@@ -72,6 +72,7 @@ export async function getStaticPaths() {
 }
 
 async function getCategorySlugs() {
+  const { db } = await connectToDatabase();
   const categories = await db
     .collection("categories")
     .find({}, { projection: { _id: 0, slug: 1 } })
