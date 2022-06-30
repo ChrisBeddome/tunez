@@ -1,10 +1,8 @@
 import styles from "./Hero.module.scss";
-
-import Image from "next/image";
-import Link from "next/link";
 import { useState, useEffect } from "react";
 
-import Fade from "/components/utils/Fade";
+import Categories from "./Categories";
+import CategoryText from "./CategoryText";
 
 const transitionDelay = 40; //ms
 
@@ -49,48 +47,20 @@ export default function Hero({ categories }) {
   };
 
   return (
-    <>
-      <div className={styles.hero}>
-        <div className={styles.container}>
-          <nav>
-            <ul>
-              {categories.map((category) => (
-                <li
-                  key={category.name}
-                  className={
-                    focusedCategory === category ? styles.focused : null
-                  }
-                  onMouseEnter={() => handleMouseEnter(category)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <Link href={`/shop/categories/${category.slug}`}>
-                    <a>
-                      <Image
-                        src={category.iconUrl}
-                        height={100}
-                        width={100}
-                        alt={`shop ${category.name}`}
-                        priority
-                      />
-                    </a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <Fade
-              in={focusedCategory && focusedCategoryText ? true : false}
-              duration={transitionDelay}
-            >
-              <div className={styles["focused-category"]}>
-                shop{" "}
-                <span className={styles["category-name"]}>
-                  {focusedCategoryText}.
-                </span>
-              </div>
-            </Fade>
-          </nav>
-        </div>
-      </div>
-    </>
+    <div className={styles.hero}>
+      <nav className={styles.container}>
+        <Categories
+          categories={categories}
+          focusedCategory={focusedCategory}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        />
+        <CategoryText
+          show={focusedCategory}
+          text={focusedCategoryText}
+          animationTime={transitionDelay}
+        />
+      </nav>
+    </div>
   );
 }

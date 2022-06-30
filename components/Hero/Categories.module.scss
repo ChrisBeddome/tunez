@@ -1,0 +1,20 @@
+.category-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  li {
+    margin: 25px;
+    flex-shrink: 0;
+    border-radius: 200px;
+
+    &.focused {
+      transform: scale(112%);
+    }
+
+    transition: transform 180ms ease-in-out;
+    @media screen and (max-width: 460px) {
+      width: 75px;
+      margin: 15px;
+    }
+  }
+}

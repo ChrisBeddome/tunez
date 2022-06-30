@@ -11,44 +11,5 @@
     transform: translate(-50%, -50%);
     width: 100%;
     max-width: 750px;
-    nav {
-      ul {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
-        li {
-          margin: 25px;
-          flex-shrink: 0;
-          border-radius: 200px;
-
-          &.focused {
-            transform: scale(112%);
-          }
-
-          transition: transform 180ms ease-in-out;
-          @media screen and (max-width: 460px) {
-            width: 75px;
-            margin: 15px;
-          }
-        }
-      }
-      .focused-category {
-        color: white;
-        position: relative;
-        top: 25px;
-        height: 0px;
-        text-align: center;
-        font-size: 32px;
-        font-weight: 100;
-        font-family: Montserrat, sans-serif;
-        @media screen and (max-width: 460px) {
-          font-size: 22px;
-        }
-        .category-name {
-          color: #222;
-          font-weight: 300;
-        }
-      }
-    }
   }
 }
