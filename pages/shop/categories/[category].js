@@ -40,9 +40,10 @@ export default function CategoryPage({ category, products }) {
 }
 
 export async function getStaticProps(context) {
-  const category = await getCategoryData(context.params.category);
+  const { db } = await connectToDatabase();
+  const category = await getCategoryData(context.params.category, db);
   if (category) {
-    const products = await getCategoryProducts(category._id);
+    const products = await getCategoryProducts(category._id, db);
     return {
       props: {
         category,
@@ -71,7 +72,6 @@ export async function getStaticPaths() {
 }
 
 async function getCategorySlugs() {
-  const { db } = await connectToDatabase();
   const categories = await db
     .collection("categories")
     .find({}, { projection: { _id: 0, slug: 1 } })
@@ -79,14 +79,12 @@ async function getCategorySlugs() {
   return categories.map((cat) => cat.slug);
 }
 
-async function getCategoryData(slug) {
-  const { db } = await connectToDatabase();
+async function getCategoryData(slug, db) {
   const category = await db.collection("categories").findOne({ slug });
   return JSON.parse(JSON.stringify(category));
 }
 
-async function getCategoryProducts(categoryId) {
-  const { db } = await connectToDatabase();
+async function getCategoryProducts(categoryId, db) {
   const products = await db
     .collection("products")
     .find({ categoryId })

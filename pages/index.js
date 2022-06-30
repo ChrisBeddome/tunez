@@ -1,5 +1,4 @@
 import Hero from "/components/Hero/Hero";
-
 import connectToDatabase from "/lib/connectToDatabase";
 
 export default function HomePage({ categories }) {

@@ -63,9 +63,5 @@ async function getProductData(id) {
   const product = await db
     .collection("products")
     .findOne({ _id: id }, { projection: { _id: 0 } });
-  if (product) {
-    return product;
-  } else {
-    throw "Product not found"
-  }
+  return product || (() => {throw "product not found"})();
 }
