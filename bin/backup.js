@@ -3,42 +3,24 @@ const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config({ path: path.join(__dirname, "../", ".env.local") });
 
-const DB = process.env.MONGODB_DB;
-const AUTH_DB = process.env.MONGODB_AUTH_DB;
-const USER = process.env.MONGODB_USER;
-const PASSWORD = process.env.MONGODB_PASS;
+const throwMissingVarError = (variableName) => {
+  throw new Error(`Please add ${variableName} to .env.local`);
+};
 
-if (!DB) {
-  throw new Error("Please add MONGODB_DB to .env.local");
-}
-if (!AUTH_DB) {
-  throw new Error("Please add MONGODB_AUTH_DB to .env.local");
-}
-if (!USER) {
-  throw new Error("Please add MONGODB_USER to .env.local");
-}
-if (!PASSWORD) {
-  throw new Error("Please add MONGODB_PASS to .env.local");
-}
-
-let ts = Date.now();
-
-let dateObj = new Date(ts);
-let seconds = dateObj.getSeconds();
-let minutes = dateObj.getMinutes();
-let hours = dateObj.getHours();
-let date = dateObj.getDate();
-let month = dateObj.getMonth() + 1;
-let year = dateObj.getFullYear();
-
-const dateString = `${year}-${month}-${date}`
-const timeString = `${hours}-${minutes}-${seconds}`
+// prettier-ignore
+const DB = process.env.MONGODB_DB           || (() => {throwMissingVarError("MONGODB_DB")})();
+// prettier-ignore
+const AUTH_DB = process.env.MONGODB_AUTH_DB || (() => {throwMissingVarError("MONGODB_AUTH_DB")})();
+// prettier-ignore
+const USER = process.env.MONGODB_USER       || (() => {throwMissingVarError("MONGODB_USER")})();
+// prettier-ignore
+const PASSWORD = process.env.MONGODB_PASS   || (() => {throwMissingVarError("MONGODB_PASS")})();
 
 const dumpProcess = exec(
   `mongodump -d ${DB} -u ${USER} -p ${PASSWORD} --authenticationDatabase ${AUTH_DB} -o ${path.resolve(
     __dirname,
     "../",
-    `data_backups/${dateString}/${timeString}/`
+    `data_backups/${Date.now()}/`
   )}`
 );
 
