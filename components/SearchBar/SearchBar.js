@@ -4,12 +4,7 @@ import ClickOutside from "/components/utils/ClickOutside";
 
 import { useState, useEffect, useRef } from "react";
 
-export default function SearchBar({
-  className,
-  focused,
-  onFocus,
-  onBlur
-}) {
+export default function SearchBar({ className, focused, onFocus, onBlur }) {
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState("");
   const inputRef = useRef(null);

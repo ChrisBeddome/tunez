@@ -1,11 +1,8 @@
-const { exec } = require("child_process");
-const path = require("path");
-const dotenv = require("dotenv");
-dotenv.config({ path: path.join(__dirname, "../", ".env.local") });
-
-const throwMissingVarError = (variableName) => {
-  throw new Error(`Please add ${variableName} to .env.local`);
-};
+import { exec } from "child_process";
+import path from "path";
+import dotenv from "dotenv";
+dotenv.config({ path: path.resolve(".env.local") });
+import throwMissingVarError from "../lib/throwMissingVarError.js";
 
 // prettier-ignore
 const DB = process.env.MONGODB_DB           || (() => {throwMissingVarError("MONGODB_DB")})();
@@ -18,8 +15,6 @@ const PASSWORD = process.env.MONGODB_PASS   || (() => {throwMissingVarError("MON
 
 const dumpProcess = exec(
   `mongodump -d ${DB} -u ${USER} -p ${PASSWORD} --authenticationDatabase ${AUTH_DB} -o ${path.resolve(
-    __dirname,
-    "../",
     `data_backups/${Date.now()}/`
   )}`
 );

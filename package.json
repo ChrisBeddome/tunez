@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "eCommerce application built with NextJS",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "node ./bin/dev.js",
     "build": "next build",
