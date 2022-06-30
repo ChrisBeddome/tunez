@@ -1,33 +1,30 @@
-const { exec } = require('child_process');
-const path = require('path');
-const dotenv = require('dotenv')
+import { exec } from "child_process";
+import path from "path";
+import dotenv from "dotenv";
+dotenv.config({ path: path.resolve(".env.local") });
+import throwMissingVarError from "../lib/throwMissingVarError.js";
 
-dotenv.config({path: path.join(__dirname, "../", ".env.local")});
+// prettier-ignore
+const PORT = parseInt(process.env.NEXT_PORT) || (() => {throwMissingVarError("NEXT_PORT")})();
+// prettier-ignore
+const HOSTNAME = process.env.NEXT_HOSTNAME   || (() => {throwMissingVarError("NEXT_HOSTNAME")})();
 
-const PORT = parseInt(process.env.NEXT_PORT);
-const HOSTNAME = process.env.NEXT_HOSTNAME;
+const serverProcess = exec(
+  path.resolve(`node_modules/next/dist/bin/next dev -p ${PORT} -H ${HOSTNAME}`)
+);
 
-if (!PORT) {
-  throw new Error('Please add NEXT_PORT to .env.local');
-}
-if (!HOSTNAME) {
-  throw new Error('Please add NEXT_HOSTNAME to .env.local');
-}
-
-const serverProcess = exec(path.resolve(__dirname, "../", `node_modules/next/dist/bin/next dev -p ${PORT} -H ${HOSTNAME}`))
-
-serverProcess.stdout.on('data', data => {
-  process.stdout.write(data); 
+serverProcess.stdout.on("data", (data) => {
+  process.stdout.write(data);
 });
 
-serverProcess.stderr.on('data', data => {
-  process.stdout.write(data); 
+serverProcess.stderr.on("data", (data) => {
+  process.stdout.write(data);
 });
 
-serverProcess.on('close', code => {
+serverProcess.on("close", (code) => {
   process.stdout.write(`child process close all stdio with code ${code}`);
 });
 
-serverProcess.on('exit', code => {
+serverProcess.on("exit", (code) => {
   process.stdout.write(`child process exited with code ${code}`);
 });
