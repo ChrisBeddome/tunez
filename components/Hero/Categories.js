@@ -17,7 +17,7 @@ export default function Categories({
           onMouseEnter={() => onMouseEnter(category)}
           onMouseLeave={onMouseLeave}
         >
-          <Link href={`/shop/categories/${category.slug}`}>
+          <Link href={`/shop/search/?category=${category.slug}`}>
             <a>
               <Image
                 src={category.iconUrl}

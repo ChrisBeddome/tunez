@@ -1,12 +1,15 @@
 import styles from "./SearchBar.module.scss";
 import SearchResults from "./SearchResults";
 import ClickOutside from "/components/utils/ClickOutside";
+import { useRouter } from "next/router";
 
 import { useState, useEffect, useRef } from "react";
 
 export default function SearchBar({ className, focused, onFocus, onBlur }) {
+  const router = useRouter();
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState("");
+  const formRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -15,7 +18,7 @@ export default function SearchBar({ className, focused, onFocus, onBlur }) {
 
   // need to use custom click-outside handler because blur events fire before click events
   // causing result section to unmount before link click is processed
-  ClickOutside(inputRef, onBlur);
+  ClickOutside(formRef, onBlur);
 
   async function performSearch() {
     if (!query || query.length < 1) {
@@ -23,15 +26,22 @@ export default function SearchBar({ className, focused, onFocus, onBlur }) {
       return;
     }
     const response = await fetch(
-      `/api/search?${new URLSearchParams({ query })}`
+      `/api/simple_search?${new URLSearchParams({ query })}`
     );
 
     const results = (await response.json()).results;
-    setResults([...results.products, ...results.categories]);
+    setResults([...results.products, ...results.categories, ...results.brands]);
   }
 
   const handleInputChange = (val) => {
     setQuery(val);
+  };
+
+  const submitSearch = (e) => {
+    e.preventDefault();
+    inputRef.current.blur();
+    router.push(`/shop/search?term=${query}`);
+    onBlur();
   };
 
   return (
@@ -40,17 +50,21 @@ export default function SearchBar({ className, focused, onFocus, onBlur }) {
         focused ? styles.focused : null
       }`}
     >
-      <div className={styles["input-container"]}>
+      <form
+        className={styles["input-container"]}
+        ref={formRef}
+        onSubmit={submitSearch}
+      >
         <i className="material-symbols-outlined">search</i>
         <input
-          ref={inputRef}
           value={query}
           onChange={(e) => handleInputChange(e.target.value)}
           placeholder="search products..."
           type="text"
           onFocus={onFocus}
+          ref={inputRef}
         />
-      </div>
+      </form>
       {focused && <SearchResults items={results} queriedText={query} />}
     </div>
   );

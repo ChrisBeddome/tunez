@@ -7,7 +7,7 @@ export default function ProductPage({ product }) {
     <div>
       <h1>{product.name}</h1>
       <ul>
-        <li>{product.brand}</li>
+        <li>{product.brand.name}</li>
         <li>{product.price}</li>
         <li>{product.stock}</li>
         <li>

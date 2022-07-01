@@ -15,6 +15,9 @@ async function getSearchResults(query) {
     categories: query
       ? (await searchCategories(query, db)).map(serializeCategory)
       : [],
+    brands: query
+      ? (await searchBrands(query, db)).map(serializeBrand)
+      : [],
   };
 }
 
@@ -29,6 +32,13 @@ async function searchProducts(query, db) {
 async function searchCategories(query, db) {
   return await db
     .collection("categories")
+    .find({ name: { $regex: query, $options: "i" } })
+    .limit(5)
+    .toArray();
+}
+async function searchBrands(query, db) {
+  return await db
+    .collection("brands")
     .find({ name: { $regex: query, $options: "i" } })
     .limit(5)
     .toArray();
@@ -48,6 +58,15 @@ function serializeCategory(category) {
     _id: category._id,
     name: category.name,
     thumbnailUrl: category.iconUrl,
-    link: `/shop/categories/${category.slug}`,
+    link: `/shop/search?category=${category.slug}`,
+  };
+}
+
+function serializeBrand(brand) {
+  return {
+    _id: brand._id,
+    name: brand.name,
+    thumbnailUrl: brand.thumbnailUrl,
+    link: `/shop/search?brand=${brand.slug}`,
   };
 }
