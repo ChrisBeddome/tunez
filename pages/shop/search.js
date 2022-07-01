@@ -44,20 +44,62 @@ export default function SearchResultsPage({ query, products }) {
 
 export async function getServerSideProps({ query }) {
   const term = query.term || "";
-  const products = await getSearchResults(term);
-  return {
-    props: {
-      query: term,
-      products: products,
-    },
-  };
+  const categorySlug = query.category;
+  const brandSlug = query.brand;
+  try {
+    const products = await getSearchResults(term, categorySlug, brandSlug);
+    return {
+      props: {
+        query: term,
+        products: products,
+      },
+    };
+  } catch (err) {
+    return {
+      notFound: true,
+    };
+  }
 }
 
-async function getSearchResults(term) {
+async function getSearchResults(
+  term = "",
+  categorySlug = null,
+  brandSlug = null
+) {
   const { db } = await connectToDatabase();
-  const results =  await db
-    .collection("products")
-    .find({ name: { $regex: term, $options: "i" } })
-    .toArray();
+
+  let options = {
+    name: { $regex: term, $options: "i" },
+  };
+
+  if (categorySlug) {
+    const category = await db
+      .collection("categories")
+      .findOne({ slug: categorySlug });
+    if (category) {
+      options.categoryId = category._id.toString();
+    } else {
+      throw "category not found";
+    }
+  }
+
+  if (brandSlug) {
+    const brand = await db
+      .collection("brands")
+      .findOne({ slug: brandSlug });
+    if (brand) {
+      options["brand.id"] = brand._id.toString();
+    } else {
+      throw "brand not found";
+    }
+  }
+
+  console.log("sdfdsfdsf")
+  console.log("sdfdsfdsf")
+  console.log("sdfdsfdsf")
+  console.log("sdfdsfdsf")
+  console.log(options);
+
+  const results = await db.collection("products").find(options).toArray();
   return JSON.parse(JSON.stringify(results));
 }
