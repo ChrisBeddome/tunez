@@ -94,12 +94,6 @@ async function getSearchResults(
     }
   }
 
-  console.log("sdfdsfdsf")
-  console.log("sdfdsfdsf")
-  console.log("sdfdsfdsf")
-  console.log("sdfdsfdsf")
-  console.log(options);
-
   const results = await db.collection("products").find(options).toArray();
   return JSON.parse(JSON.stringify(results));
 }
