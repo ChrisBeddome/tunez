@@ -38,7 +38,7 @@ function serializeProduct(product) {
   return {
     _id: product._id,
     name: product.name,
-    thumbnailUrl: product.imageUrl,
+    thumbnailUrl: product.thumbnailUrl,
     link: `/shop/products/${product._id}`,
   };
 }
