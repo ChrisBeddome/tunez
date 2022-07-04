@@ -28,10 +28,10 @@ export default function Header() {
         onFocus={handleSearchFocus}
         onBlur={handleSearchBlur}
       />
-      <div className={styles.navigation}>
+      <nav className={styles.navigation}>
         <i className="material-symbols-outlined">person</i>
         <i className="material-symbols-outlined">shopping_cart</i>
-      </div>
+      </nav>
       <SearchOverlay enabled={searchFocused} />
     </header>
   );

@@ -10,6 +10,10 @@
     "start": "next start",
     "backup": "node ./bin/backup.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisBeddome/tunez.git"
+  },
   "author": "Chris Beddome",
   "license": "MIT",
   "dependencies": {
