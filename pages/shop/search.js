@@ -72,28 +72,35 @@ async function getSearchResults(
     name: { $regex: term, $options: "i" },
   };
 
-  if (categorySlug) {
-    const category = await db
-      .collection("categories")
-      .findOne({ slug: categorySlug });
-    if (category) {
-      options.categoryId = category._id.toString();
-    } else {
-      throw "category not found";
-    }
-  }
+  options = categorySlug
+    ? await concatCategoryToOptions(options, categorySlug, db)
+    : options;
+  options = brandSlug ? await concatBrandToOptions(options, brandSlug, db) : options;
 
-  if (brandSlug) {
-    const brand = await db
-      .collection("brands")
-      .findOne({ slug: brandSlug });
-    if (brand) {
-      options["brand.id"] = brand._id.toString();
-    } else {
-      throw "brand not found";
-    }
-  }
+  console.log(options)
 
   const results = await db.collection("products").find(options).toArray();
   return JSON.parse(JSON.stringify(results));
+}
+
+async function concatCategoryToOptions(options, categorySlug, db) {
+  const category = await db
+    .collection("categories")
+    .findOne({ slug: categorySlug });
+  if (category) {
+    options.categoryId = category._id.toString();
+  } else {
+    throw "category not found";
+  }
+  return options;
+}
+
+async function concatBrandToOptions(options, brandSlug, db) {
+  const brand = await db.collection("brands").findOne({ slug: brandSlug });
+  if (brand) {
+    options["brand.id"] = brand._id.toString();
+  } else {
+    throw "brand not found";
+  }
+  return options;
 }
