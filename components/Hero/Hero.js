@@ -1,4 +1,6 @@
 import styles from "./Hero.module.scss";
+import Image from "next/image";
+import logo from "/public/branding/logo-white.svg";
 import { useState, useEffect } from "react";
 
 import Categories from "./Categories";
@@ -48,19 +50,24 @@ export default function Hero({ categories }) {
 
   return (
     <div className={styles.hero}>
-      <nav className={styles.container}>
-        <Categories
-          categories={categories}
-          focusedCategory={focusedCategory}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        />
-        <CategoryText
-          show={focusedCategory}
-          text={focusedCategoryText}
-          animationTime={transitionDelay}
-        />
-      </nav>
+      <div className={styles["hero-left"]}>
+        <Image src={logo} alt="tunez logo" width={400} priority />
+      </div>
+      <div className={styles["hero-right"]}>
+        <nav>
+          <Categories
+            categories={categories}
+            focusedCategory={focusedCategory}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          />
+          <CategoryText
+            show={focusedCategory}
+            text={focusedCategoryText}
+            animationTime={transitionDelay}
+          />
+        </nav>
+      </div>
     </div>
   );
 }

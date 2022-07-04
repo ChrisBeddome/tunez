@@ -2,14 +2,29 @@
 
 .hero {
   height: calc(100vh - $header-height);
-  background-color: $primary;
-  position: relative;
-  .container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    max-width: 750px;
+  display: flex;
+  align-items: stretch;
+  >* {
+    flex: 1;
+  }
+  .hero-left {
+    display: flex;
+    justify-content: center;
+    background-color: $blackish;
+    @media screen and (max-width: 1100px) {
+      display: none;
+    }
+  }
+  .hero-right {
+    background-color: $primary;
+    position: relative;
+    nav {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      max-width: 800px;
+      transform: translate(-50%, -50%);
+    }
   }
 }
