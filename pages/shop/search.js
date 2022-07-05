@@ -77,8 +77,6 @@ async function getSearchResults(
     : options;
   options = brandSlug ? await concatBrandToOptions(options, brandSlug, db) : options;
 
-  console.log(options)
-
   const results = await db.collection("products").find(options).toArray();
   return JSON.parse(JSON.stringify(results));
 }
