@@ -2,6 +2,8 @@
 
 tunez. is an ecommerce application built with nextJS and MongoDB.
 
+[img](./demo.gif)
+
 ## Installation
 
 Install [mongodb](https://www.mongodb.com/docs/manual/installation/).
